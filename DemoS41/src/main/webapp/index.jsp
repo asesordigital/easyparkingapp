@@ -55,7 +55,38 @@
                                 <label>Marca</label>
                                 <input name="marca" class="form-control" type="text" ng-model="vc.marca" ng-model-options="{updateOn: 'blur'}" required>
                             </div>
-                           
+                            <!--
+                            <div class="col-6">
+                                <label>Genero</label>
+                                <select name="genero" class="form-control" ng-model="vc.genero" ng-model-options="{updateOn: 'blur'}" required>
+                                    <option>Masculino</option>
+                                    <option>Femenino</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label>Tipo identificacion</label>
+                                <select name="tipoIdentificacion" class="form-control" ng-model="vc.tipoIdentificacion" ng-model-options="{updateOn: 'blur'}" required>
+                                    <option>CC</option>
+                                    <option>TI</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label>Telefono</label>
+                                <input name="telefono" class="form-control" type="number" ng-model="vc.telefono" ng-model-options="{updateOn: 'blur'}" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label>Dirección</label>
+                                <input name="direccion" class="form-control" type="text" ng-model="vc.direccion" ng-model-options="{updateOn: 'blur'}" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="control-label">Correo</label>
+                                <input name="correo" class="form-control" type="email" ng-model="vc.correo"  ng-model-options="{updateOn: 'blur'}" required>
+                            </div>
+                            -->
                         </div>
                         <div><br></div>
                         <h3>Sección 2</h3>
@@ -90,7 +121,13 @@
                                 <td>{{ vehiculo.placa}}</td>  
                                 <td>{{ vehiculo.color}}</td>  
                                 <td>{{ vehiculo.marca}}</td>  
-                      
+                                <!--
+                                <td>{{ vehiculo.genero}}</td>  
+                                <td>{{ vehiculo.tipoIdentificacion}}</td>  
+                                <td>{{ vehiculo.telefono}}</td>  
+                                <td>{{ vehiculo.direccion}}</td>  
+                                <td>{{ vehiculo.correo}}</td>
+                                -->
                             </tr> 
                         </table>
                     </div>
@@ -147,11 +184,15 @@
             
             vc.guardarVehiculo = function () {
                 var vehiculo = {
-                    proceso: "guardarVehiculo",
+                    proceso: "guardarvehiculo",
                     placa: vc.placa,
-                    color: vc.color,
+                    /*color: vc.color,
                     marca: vc.marca,
-             
+                    genero: vc.genero,
+                    tipoIdentificacion: vc.tipoIdentificacion,
+                    telefono: vc.telefono,
+                    direccion: vc.direccion,
+                    correo: vc.correo*/
                 };
                 $http({
                     method: 'POST',
@@ -198,8 +239,13 @@
                 var vehiculo = {
                     proceso: "actualizarvehiculo",
                     placa: vc.placa,
-                    color: vc.color,
-             
+                    /*color: vc.color,
+                    marca: vc.marca,
+                    genero: vc.genero,
+                    tipoIdentificacion: vc.tipoIdentificacion,
+                    telefono: vc.telefono,
+                    direccion: vc.direccion,
+                    correo: vc.correo*/
                 };
                 $http({
                     method: 'POST',
