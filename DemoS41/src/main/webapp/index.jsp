@@ -30,11 +30,11 @@
         }
     </style>
     <body>
-        <div class="container-fluid" ng-app="DemoS41" ng-controller="contactosController as cn">
+        <div class="container-fluid" ng-app="DemoS41" ng-controller="vehiculosController as vc">
             <form name="userForm" novalidate>
                 <div class="row">
                     <div class="col-12">
-                        <center><h1>Formulario Contactos</h1></center>
+                        <center><h1>Ingreso Vehículos</h1></center>
                     </div>
                 </div>
                 <div class="row">
@@ -42,64 +42,35 @@
                         <h3>Sección 1</h3>
                         <div class="row">
                             <div class="col-6">
-                                <label >Identificacion </label>
-                                <input  name="identificacion" class="form-control" type="number" min="0" ng-model="cn.identificacion" ng-model-options="{updateOn: 'blur'}" required>
+                                <label >Placa Vehículo </label>
+                                <input  name="placa" class="form-control" type="text" min="0" ng-model="vc.placa" ng-model-options="{updateOn: 'blur'}" required>
                             </div>
                             <div class="col-6">
-                                <label >Nombre </label>
-                                <input name="nombre" class="form-control" type="text" ng-model="cn.nombre" ng-model-options="{updateOn: 'blur'}" required>
+                                <label >Color </label>
+                                <input name="color" class="form-control" type="text" ng-model="vc.color" ng-model-options="{updateOn: 'blur'}" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <label>Apellido</label>
-                                <input name="apellido" class="form-control" type="text" ng-model="cn.apellido" ng-model-options="{updateOn: 'blur'}" required>
+                                <label>Marca</label>
+                                <input name="marca" class="form-control" type="text" ng-model="vc.marca" ng-model-options="{updateOn: 'blur'}" required>
                             </div>
-                            <div class="col-6">
-                                <label>Genero</label>
-                                <select name="genero" class="form-control" ng-model="cn.genero" ng-model-options="{updateOn: 'blur'}" required>
-                                    <option>Masculino</option>
-                                    <option>Femenino</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label>Tipo identificacion</label>
-                                <select name="tipoIdentificacion" class="form-control" ng-model="cn.tipoIdentificacion" ng-model-options="{updateOn: 'blur'}" required>
-                                    <option>CC</option>
-                                    <option>TI</option>
-                                </select>
-                            </div>
-                            <div class="col-6">
-                                <label>Telefono</label>
-                                <input name="telefono" class="form-control" type="number" ng-model="cn.telefono" ng-model-options="{updateOn: 'blur'}" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label>Dirección</label>
-                                <input name="direccion" class="form-control" type="text" ng-model="cn.direccion" ng-model-options="{updateOn: 'blur'}" required>
-                            </div>
-                            <div class="col-6">
-                                <label class="control-label">Correo</label>
-                                <input name="correo" class="form-control" type="email" ng-model="cn.correo"  ng-model-options="{updateOn: 'blur'}" required>
-                            </div>
+                           
                         </div>
                         <div><br></div>
                         <h3>Sección 2</h3>
                         <div class="row">
                             <div class="col-3">
-                                <input  class="btn btn-success" type="submit" ng-click="cn.guardarContacto()" value="Guardar" ng-disabled="" />
+                                <input  class="btn btn-success" type="submit" ng-click="vc.guardarVehiculo()" value="Guardar" ng-disabled="" />
                             </div>
                             <div class="col-3">
-                                <button  class="btn btn-primary" ng-click="cn.listarContactos()">Listar contacto</button>
+                                <button  class="btn btn-primary" ng-click="vc.listarVehiculos()">Listar vehiculo</button>
                             </div>
                             <div class="col-3">
-                                <button  class="btn btn-danger" ng-click="cn.eliminarContacto()">Eliminar contacto</button>
+                                <button  class="btn btn-danger" ng-click="vc.eliminarVehiculo()">Eliminar vehiculo</button>
                             </div>
                             <div class="col-3">
-                                <button  class="btn btn-warning" ng-click="cn.actualizarContacto()">Actualizar contacto</button>
+                                <button  class="btn btn-warning" ng-click="vc.actualizarVehiculo()">Actualizar vehiculo</button>
                             </div>
                         </div>
                     </div>
@@ -110,25 +81,16 @@
                         <table class="table table-striped table-hover">
                             <thead class="thead-dark">
                                 <tr>  
-                                    <th>Id</th>  
-                                    <th>Nombre</th>  
-                                    <th>Apellido</th>  
-                                    <th>Genero</th>  
-                                    <th>Tipo id</th>  
-                                    <th>Telefono</th>  
-                                    <th>Direccion</th>  
-                                    <th>Correo</th>  
+                                    <th>Número de Placa</th>  
+                                    <th>Color</th>  
+                                    <th>Marca</th>                                     
                                 </tr>  
                             </thead>
-                            <tr ng-repeat = "contacto in cn.contactos">  
-                                <td>{{ contacto.identificacion}}</td>  
-                                <td>{{ contacto.nombre}}</td>  
-                                <td>{{ contacto.apellido}}</td>  
-                                <td>{{ contacto.genero}}</td>  
-                                <td>{{ contacto.tipoIdentificacion}}</td>  
-                                <td>{{ contacto.telefono}}</td>  
-                                <td>{{ contacto.direccion}}</td>  
-                                <td>{{ contacto.correo}}</td>  
+                            <tr ng-repeat = "vehiculo in vc.vehiculos">  
+                                <td>{{ vehiculo.placa}}</td>  
+                                <td>{{ vehiculo.color}}</td>  
+                                <td>{{ vehiculo.marca}}</td>  
+                      
                             </tr> 
                         </table>
                     </div>
@@ -139,14 +101,13 @@
     <script>
         //codigo Angular
         angular.module('DemoS41', [])
-                .controller('contactosController', ['$scope', function ($scope) {
+                .controller('vehiculosController', ['$scope', function ($scope) {
                  
                      $scope.user = {};
                      
                      $scope.update = function () {
                             console.log($scope.user);
                         };
-
                         $scope.reset = function (form) {
                             $scope.user = {};
                             if (form) {
@@ -154,58 +115,53 @@
                                 form.$setUntouched();
                             }
                         };
-
                         $scope.reset();
                         
         }]);
     
         var app = angular.module('DemoS41', []);
-        app.controller('contactosController', ['$http', controladorContactos]);
+        app.controller('vehiculosController', ['$http', controladorVehiculos]);
         
         function validar() {
             return true;
         }
         
-        function controladorContactos($http) {
+        function controladorVehiculos($http) {
             
             var cn = this;
             
-            cn.listarContactos = function () {
-                console.log('si ingresa al Angular lsitar');
+            vc.listarVehiculos = function () {
+                console.log('si ingresa al Angular listar');
                 var url = "Peticiones.jsp";
                 var params = {
-                    proceso: "listarcontacto"
+                    proceso: "listarvehiculo"
                 };
                 $http({
                     method: 'POST',
                     url: 'Peticiones.jsp',
                     params: params
                 }).then(function (res) {
-                    cn.contactos = res.data.Contactos;
+                    vc.vehiculos = res.data.Vehiculos;
                 });
             };
             
-            cn.guardarContacto = function () {
-                var contacto = {
-                    proceso: "guardarContacto",
-                    identificacion: cn.identificacion,
-                    nombre: cn.nombre,
-                    apellido: cn.apellido,
-                    genero: cn.genero,
-                    tipoIdentificacion: cn.tipoIdentificacion,
-                    telefono: cn.telefono,
-                    direccion: cn.direccion,
-                    correo: cn.correo
+            vc.guardarVehiculo = function () {
+                var vehiculo = {
+                    proceso: "guardarVehiculo",
+                    placa: vc.placa,
+                    color: vc.color,
+                    marca: vc.marca,
+             
                 };
                 $http({
                     method: 'POST',
                     url: 'Peticiones.jsp',
-                    params: contacto
+                    params: vehiculo
                 }).then(function (res) {
                     if (res.data.ok === true) {
-                        if (res.data[contacto.proceso] === true) {
+                        if (res.data[vehiculo.proceso] === true) {
                             alert("Guardado con éxito");
-                            //                                                            cn.listarContactos();
+                            //                                                            vc.listarVehiculos();
                         } else {
                             alert("Por favor vefifique sus datos");
                         }
@@ -213,23 +169,22 @@
                         alert(res.data.errorMsg);
                     }
                 });
-
             };
             
-            cn.eliminarContacto = function () {
-                var contacto = {
-                    proceso: "eliminarcontacto",
-                    identificacion: cn.identificacion
+            vc.eliminarVehiculo = function () {
+                var vehiculo = {
+                    proceso: "eliminarvehiculo",
+                    placa: vc.placa
                 };
                 $http({
                     method: 'POST',
                     url: 'Peticiones.jsp',
-                    params: contacto
+                    params: vehiculo
                 }).then(function (res) {
                     if (res.data.ok === true) {
-                        if (res.data[contacto.proceso] === true) {
+                        if (res.data[vehiculo.proceso] === true) {
                             alert("Eliminado con éxito");
-                            //                                cn.listarContactos();
+                            //                                vc.listarVehiculos();
                         } else {
                             alert("Por favor vefifique sus datos");
                         }
@@ -237,31 +192,24 @@
                         alert(res.data.errorMsg);
                     }
                 });
-
             };
             
-             cn.actualizarContacto = function () {
-
-                var contacto = {
-                    proceso: "actualizarcontacto",
-                    identificacion: cn.identificacion,
-                    nombre: cn.nombre,
-                    apellido: cn.apellido,
-                    genero: cn.genero,
-                    tipoIdentificacion: cn.tipoIdentificacion,
-                    telefono: cn.telefono,
-                    direccion: cn.direccion,
-                    correo: cn.correo
+             vc.actualizarVehiculo = function () {
+                var vehiculo = {
+                    proceso: "actualizarvehiculo",
+                    placa: vc.placa,
+                    color: vc.color,
+             
                 };
                 $http({
                     method: 'POST',
                     url: 'Peticiones.jsp',
-                    params: contacto
+                    params: vehiculo
                 }).then(function (res) {
                     if (res.data.ok === true) {
-                        if (res.data[contacto.proceso] === true) {
-                            alert("actualizarcontacto con éxito");
-                            //                                cn.listarContactos();
+                        if (res.data[vehiculo.proceso] === true) {
+                            alert("actualizar vehículo con éxito");
+                            //                                vc.listarVehiculos();
                         } else {
                             alert("Por favor vefifique sus datos");
                         }
@@ -269,7 +217,6 @@
                         alert(res.data.errorMsg);
                     }
                 });
-
             };
             
         }
