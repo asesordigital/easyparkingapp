@@ -45,7 +45,7 @@ public class Vehiculo {
         return EnviarSentencia(sentencia);
     }
 
-    public boolean borrarVehiculo(int placa) {
+    public boolean borrarVehiculo(String placa) {
         String Sentencia = "DELETE FROM `"+nombretablaEnSql+"` WHERE `"+nombreEnSqlPlaca+"`='" + placa + "'";
         ConexionBD conexion = new ConexionBD();
 
