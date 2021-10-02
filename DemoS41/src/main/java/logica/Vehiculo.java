@@ -81,7 +81,7 @@ public class Vehiculo {
     public List<Vehiculo> listarVehiculos() throws SQLException {
         ConexionBD conexion = new ConexionBD();
         List<Vehiculo> listaVehiculos = new ArrayList<>();
-        String sql = "select * from "+nombretablaEnSql+" order by identificacion asc";
+        String sql = "select * from "+nombretablaEnSql+" order by "+nombreEnSqlPlaca+" asc";
         ResultSet rs = conexion.consultarBD(sql);
         Vehiculo c;
         while (rs.next()) {
