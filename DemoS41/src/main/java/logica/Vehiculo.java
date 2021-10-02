@@ -17,121 +17,45 @@ import persistencia.ConexionBD;
  */
 public class Vehiculo {
 
-    private int identificacion;
-    private String nombre;
-    private String apellido;
-    private String genero;
-    private String tipoIdentificacion;
-    private String telefono;
-    private String direccion;
-    private String correo;
+    private String placa;
+    
+    private String nombreEnSqlPlaca = "no_placa";
+    private String nombretablaEnSql = "vehiculo";
 
     public Vehiculo() {
+        
+    }
+    public Vehiculo(String placa) {
+        this.placa = placa;
+    }
+    
+    public String getPlaca() {
+        return placa;
     }
 
-    public Vehiculo getContacto(int identificacion) throws SQLException {
-        this.identificacion = identificacion;
-        return this.getContacto();
+    public void setPlaca(String placa) {
+        this.placa = placa;
     }
 
-    public int getIdentificacion() {
-        return identificacion;
-    }
-
-    public void setIdentificacion(int identificacion) {
-        this.identificacion = identificacion;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
-    public String getTipoIdentificacion() {
-        return tipoIdentificacion;
-    }
-
-    public void setTipoIdentificacion(String tipoIdentificacion) {
-        this.tipoIdentificacion = tipoIdentificacion;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public void llenarContacto(int identificacion, String nombre, String apellido, String genero, String tipoIdentificacion, String telefono, String direccion, String correo) {
-        this.identificacion = identificacion;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.genero = genero;
-        this.tipoIdentificacion = tipoIdentificacion;
-        this.telefono = telefono;
-        this.direccion = direccion;
-        this.correo = correo;
-    }
-
-    public boolean guardarContacto() {
+    public boolean guardarVehiculo() {
         System.out.println("bien");
         ConexionBD conexion = new ConexionBD();
-        String sentencia = "INSERT INTO contactos(identificacion, nombre, apellido, genero, tipoIdentificacion, telefono, direccion, correo) "
-                + " VALUES ( '" + this.identificacion + "','" + this.nombre + "',"
-                + "'" + this.apellido + "','" + this.genero + "','" + this.tipoIdentificacion + "',"
-                + "'" + this.telefono + "','" + this.direccion + "','" + this.correo + "');  ";
+        String sentencia = "INSERT INTO "+nombretablaEnSql+"("+nombreEnSqlPlaca+") "
+                + " VALUES ( '" + this.placa + "');";
         return EnviarSentencia(sentencia);
     }
 
-    public boolean borrarContacto(int identificacion) {
-        String Sentencia = "DELETE FROM `contactos` WHERE `identificacion`='" + identificacion + "'";
+    public boolean borrarVehiculo(int placa) {
+        String Sentencia = "DELETE FROM `"+nombretablaEnSql+"` WHERE `"+nombreEnSqlPlaca+"`='" + placa + "'";
         ConexionBD conexion = new ConexionBD();
 
         return EnviarSentencia(Sentencia);
     }
 
-    public boolean actualizarContacto() {
+    public boolean actualizarVehiculo() {
         ConexionBD conexion = new ConexionBD();
-        String Sentencia = "UPDATE `contactos` SET nombre='" + this.nombre + "',apellido='" + this.apellido + "',genero='" + this.genero
-                + "',tipoIdentificacion='" + this.tipoIdentificacion + "',telefono='" + this.telefono + "',direccion='" + this.direccion + "',correo='" + this.correo
-                + "' WHERE identificacion=" + this.identificacion + ";";
-
+        String Sentencia = "UPDATE `"+nombretablaEnSql+"` SET "+nombreEnSqlPlaca+"='" + this.placa
+                + "' WHERE "+nombreEnSqlPlaca+"=" + this.placa + ";";
         return EnviarSentencia(Sentencia);
     }
     
@@ -154,42 +78,28 @@ public class Vehiculo {
     }
     
 
-    public List<Vehiculo> listarContactos() throws SQLException {
+    public List<Vehiculo> listarVehiculos() throws SQLException {
         ConexionBD conexion = new ConexionBD();
-        List<Vehiculo> listaContactos = new ArrayList<>();
-        String sql = "select * from contactos order by identificacion asc";
+        List<Vehiculo> listaVehiculos = new ArrayList<>();
+        String sql = "select * from "+nombretablaEnSql+" order by identificacion asc";
         ResultSet rs = conexion.consultarBD(sql);
         Vehiculo c;
         while (rs.next()) {
             c = new Vehiculo();
-            c.setIdentificacion(rs.getInt("identificacion"));
-            c.setNombre(rs.getString("nombre"));
-            c.setApellido(rs.getString("apellido"));
-            c.setGenero(rs.getString("genero"));
-            c.setTipoIdentificacion(rs.getString("tipoIdentificacion"));
-            c.setTelefono(rs.getString("telefono"));
-            c.setDireccion(rs.getString("direccion"));
-            c.setCorreo(rs.getString("correo"));
-            listaContactos.add(c);
+            c.setPlaca(rs.getString(nombreEnSqlPlaca));
+            listaVehiculos.add(c);
 
         }
         conexion.cerrarConexion();
-        return listaContactos;
+        return listaVehiculos;
     }
 
-    public Vehiculo getContacto() throws SQLException {
+    public Vehiculo getVehiculo() throws SQLException {
         ConexionBD conexion = new ConexionBD();
-        String sql = "select * from contactos where identificacion='" + this.identificacion + "'";
+        String sql = "select * from "+nombretablaEnSql+" where "+nombreEnSqlPlaca+"='" + this.placa + "'";
         ResultSet rs = conexion.consultarBD(sql);
-        if (rs.next()) {
-            this.identificacion = rs.getInt("identificacion");
-            this.nombre = rs.getString("nombre");
-            this.apellido = rs.getString("apellido");
-            this.genero = rs.getString("genero");
-            this.tipoIdentificacion = rs.getString("tipoIdentificacion");
-            this.telefono = rs.getString("telefono");
-            this.direccion = rs.getString("direccion");
-            this.correo = rs.getString("correo");
+        if (rs.next()) {            
+            this.placa = rs.getString(nombreEnSqlPlaca);
             conexion.cerrarConexion();
             return this;
 
@@ -202,7 +112,7 @@ public class Vehiculo {
 
     @Override
     public String toString() {
-        return "Contacto{" + "identificacion=" + identificacion + ", nombre=" + nombre + ", apellido=" + apellido + ", genero=" + genero + ", tipoIdentificacion=" + tipoIdentificacion + ", telefono=" + telefono + ", direccion=" + direccion + ", correo=" + correo + '}';
+        return nombretablaEnSql+"{" + nombreEnSqlPlaca + "=" + placa + '}';
     }
 
 }
