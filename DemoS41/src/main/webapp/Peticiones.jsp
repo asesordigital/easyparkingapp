@@ -15,93 +15,71 @@
 <%@page contentType="application/json;charset=iso-8859-1" language="java" pageEncoding="iso-8859-1" session="true"%>
 
 <%    // Iniciando respuesta JSON.
-    Contacto c1 = new Contacto();
+   Vehiculo ve = new Vehiculo();
     String respuesta = "{";
 
     //Lista de procesos o tareas a realizar 
     List<String> tareas = Arrays.asList(new String[]{
-        "actualizarcontacto",
-        "eliminarcontacto",
-        "listarcontacto",
-        "guardarContacto"
+        "actualizarvehiculo",
+        "eliminarvehiculo",
+        "listarvehiculo",
+        "guardarvehiculo"
     });
 
     String proceso = "" + request.getParameter("proceso");
 
-    // Validación de parámetros utilizados en todos los procesos.
+    // ValidaciÃ³n de parÃ¡metros utilizados en todos los procesos.
     if (tareas.contains(proceso)) {
         respuesta += "\"ok\": true,";
         // ------------------------------------------------------------------------------------- //
         // -----------------------------------INICIO PROCESOS----------------------------------- //
         // ------------------------------------------------------------------------------------- //
-        if (proceso.equals("guardarContacto")) {
+        if (proceso.equals("guardarvechiculo")) {
 
-            int ident = Integer.parseInt(request.getParameter("identificacion"));
-            String nombre = request.getParameter("nombre");
-            String apellido = request.getParameter("apellido");
-            String genero = request.getParameter("genero");
-            String tipoident = request.getParameter("tipoIdentificacion");
-            String telefono = request.getParameter("telefono");
-            String direccion = request.getParameter("direccion");
-            String correo = request.getParameter("correo");
+            String pla = request.getParameter("placa");
+            String color = request.getParameter("color");
+            String apellido = request.getParameter("marca");
             boolean favorito = Boolean.parseBoolean(request.getParameter("favorito"));
 //
-            Contacto c = new Contacto();
-            c.setIdentificacion(ident);
-            c.setNombre(nombre);
-            c.setApellido(apellido);
-            c.setGenero(genero);
-            c.setTipoIdentificacion(tipoident);
-            c.setTelefono(telefono);
-            c.setDireccion(direccion);
-            c.setCorreo(correo);
-            if (c.guardarContacto()) {
+            Vehiculo v = new Vehiculo();
+            v.setPlaca(pla);
+            //v.setColor(color);
+            //v.setMarca(marca);//
+        
+            if (v.guardarVehiculo()) {
 //            if (true) {
                 respuesta += "\"" + proceso + "\": true";
             } else {
                 respuesta += "\"" + proceso + "\": false";
             }
 
-        } else if (proceso.equals("eliminarcontacto")) {
-            Contacto c = new Contacto();
-            int identificacion = Integer.parseInt(request.getParameter("identificacion"));
-            if (c.borrarContacto(identificacion)) {
+        } else if (proceso.equals("eliminarvehiculo")) {
+            Vehiculo v = new Vehiculo();
+            String placa = request.getParameter("placa");
+            if (v.borrarVehiculo(placa)) {
 //            if (true) {
                 respuesta += "\"" + proceso + "\": true";
             } else {
                 respuesta += "\"" + proceso + "\": false";
             }
 
-        } else if (proceso.equals("listarcontacto")) {
-            Contacto c = new Contacto();
+        } else if (proceso.equals("listarvehiculo")) {
+            Vehiculo v = new Vehiculo();
             try {
-                List<Contacto> lista = c.listarContactos();
-                respuesta += "\"" + proceso + "\": true,\"Contactos\":" + new Gson().toJson(lista);
+                List<Vehiculo> lista = v.listarVehiculos();
+                respuesta += "\"" + proceso + "\": true,\"Vehiculos\":" + new Gson().toJson(lista);
             } catch (SQLException ex) {
-                respuesta += "\"" + proceso + "\": true,\"Contactos\":[]";
-                Logger.getLogger(Contacto.class.getName()).log(Level.SEVERE, null, ex);
+                respuesta += "\"" + proceso + "\": true,\"Vehiculos\":[]";
+                Logger.getLogger(Vehiculo.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if (proceso.equals("actualizarcontacto")) {
-            int ident = Integer.parseInt(request.getParameter("identificacion"));
-            String nombre = request.getParameter("nombre");
-            String apellido = request.getParameter("apellido");
-            String genero = request.getParameter("genero");
-            String tipoident = request.getParameter("tipoIdentificacion");
-            String telefono = request.getParameter("telefono");
-            String direccion = request.getParameter("direccion");
-            String correo = request.getParameter("correo");
-            boolean favorito = Boolean.parseBoolean(request.getParameter("favorito"));
+        } else if (proceso.equals("actualizarvehiculo")) {
+            String pla = request.getParameter("placa");
+
 //
-            Contacto c = new Contacto();
-            c.setIdentificacion(ident);
-            c.setNombre(nombre);
-            c.setApellido(apellido);
-            c.setGenero(genero);
-            c.setTipoIdentificacion(tipoident);
-            c.setTelefono(telefono);
-            c.setDireccion(direccion);
-            c.setCorreo(correo);
-            if (c.actualizarContacto()) {
+            Vehiculo v = new Vehiculo();
+            v.setPlaca(pla);
+
+            if (v.actualizarVehiculo()) {
 //            if (true) {
                 respuesta += "\"" + proceso + "\": true";
             } else {
@@ -117,10 +95,10 @@
         respuesta += "\"ok\": false,";
         respuesta += "\"error\": \"INVALID\",";
         respuesta += "\"errorMsg\": \"Lo sentimos, los datos que ha enviado,"
-                + " son inválidos. Corrijalos y vuelva a intentar por favor.\"";
+                + " son invÃ¡lidos. Corrijalos y vuelva a intentar por favor.\"";
     }
-    // Usuario sin sesión.
-    // Responder como objeto JSON codificación ISO 8859-1.
+    // Usuario sin sesiÃ³n.
+    // Responder como objeto JSON codificaciÃ³n ISO 8859-1.
     respuesta += "}";
     response.setContentType("application/json;charset=iso-8859-1");
     out.print(respuesta);
