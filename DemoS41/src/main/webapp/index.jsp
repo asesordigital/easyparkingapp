@@ -45,6 +45,7 @@
                                 <label >Placa Vehículo </label>
                                 <input  name="placa" class="form-control" type="text" min="0" ng-model="vc.placa" ng-model-options="{updateOn: 'blur'}" required>
                             </div>
+                             <!--
                             <div class="col-6">
                                 <label >Color </label>
                                 <input name="color" class="form-control" type="text" ng-model="vc.color" ng-model-options="{updateOn: 'blur'}" required>
@@ -55,7 +56,6 @@
                                 <label>Marca</label>
                                 <input name="marca" class="form-control" type="text" ng-model="vc.marca" ng-model-options="{updateOn: 'blur'}" required>
                             </div>
-                            <!--
                             <div class="col-6">
                                 <label>Genero</label>
                                 <select name="genero" class="form-control" ng-model="vc.genero" ng-model-options="{updateOn: 'blur'}" required>
