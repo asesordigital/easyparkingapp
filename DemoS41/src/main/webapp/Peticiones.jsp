@@ -1,13 +1,13 @@
 <%--     Document   : Archivo de peticiones
     Created on : dd/mm/yyyy, hh:mm: AM/PM
-    Author     : nombre autor
+    Author     : color autor
 
 --%>
 
 <%@page import="java.util.logging.Logger"%>
 <%@page import="java.util.logging.Level"%>
 <%@page import="java.sql.SQLException"%>
-<%@page import="logica.Contacto"%>
+<%@page import="logica.Vehiculo"%>
 <%@page import="com.google.gson.Gson"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
@@ -15,14 +15,15 @@
 <%@page contentType="application/json;charset=iso-8859-1" language="java" pageEncoding="iso-8859-1" session="true"%>
 
 <%    // Iniciando respuesta JSON.
-   Vehiculo ve = new Vehiculo();
+    Vehiculo v1 = new Vehiculo();
+    Vehiculo v = new Vehiculo();
     String respuesta = "{";
 
     //Lista de procesos o tareas a realizar 
     List<String> tareas = Arrays.asList(new String[]{
         "actualizarvehiculo",
         "eliminarvehiculo",
-        "listarvehiculo",
+        "listarvehiculos",
         "guardarvehiculo"
     });
 
@@ -37,15 +38,15 @@
         if (proceso.equals("guardarvechiculo")) {
 
             String pla = request.getParameter("placa");
-            String color = request.getParameter("color");
-            String apellido = request.getParameter("marca");
-            boolean favorito = Boolean.parseBoolean(request.getParameter("favorito"));
+            //String color = request.getParameter("color");
+            //String apellido = request.getParameter("marca");
+            //boolean favorito = Boolean.parseBoolean(request.getParameter("favorito"));
 //
-            Vehiculo v = new Vehiculo();
+            // Vehiculo v = new Vehiculo();
             v.setPlaca(pla);
             //v.setColor(color);
             //v.setMarca(marca);//
-        
+
             if (v.guardarVehiculo()) {
 //            if (true) {
                 respuesta += "\"" + proceso + "\": true";
@@ -54,7 +55,7 @@
             }
 
         } else if (proceso.equals("eliminarvehiculo")) {
-            Vehiculo v = new Vehiculo();
+            // Vehiculo v = new Vehiculo();
             String placa = request.getParameter("placa");
             if (v.borrarVehiculo(placa)) {
 //            if (true) {
@@ -63,8 +64,8 @@
                 respuesta += "\"" + proceso + "\": false";
             }
 
-        } else if (proceso.equals("listarvehiculo")) {
-            Vehiculo v = new Vehiculo();
+        } else if (proceso.equals("listarvehiculos")) {
+
             try {
                 List<Vehiculo> lista = v.listarVehiculos();
                 respuesta += "\"" + proceso + "\": true,\"Vehiculos\":" + new Gson().toJson(lista);
@@ -76,7 +77,7 @@
             String pla = request.getParameter("placa");
 
 //
-            Vehiculo v = new Vehiculo();
+            //  Vehiculo v = new Vehiculo();
             v.setPlaca(pla);
 
             if (v.actualizarVehiculo()) {
@@ -95,7 +96,7 @@
         respuesta += "\"ok\": false,";
         respuesta += "\"error\": \"INVALID\",";
         respuesta += "\"errorMsg\": \"Lo sentimos, los datos que ha enviado,"
-                + " son inválidos. Corrijalos y vuelva a intentar por favor.\"";
+                + " Pepe son inválidos. Corrijalos y vuelva a intentar por favor.\"";
     }
     // Usuario sin sesión.
     // Responder como objeto JSON codificación ISO 8859-1.
@@ -103,3 +104,4 @@
     response.setContentType("application/json;charset=iso-8859-1");
     out.print(respuesta);
 %>
+
