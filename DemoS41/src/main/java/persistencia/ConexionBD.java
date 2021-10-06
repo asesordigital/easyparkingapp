@@ -38,8 +38,8 @@ public class ConexionBD {
         
         DB_driver = "com.mysql.cj.jdbc.Driver";
         
-            host = "localhost:3306";
-            db = "misiontic";
+            host = "localhost:3307";
+            db = "parking";
             url = "jdbc:mysql://" + host + "/" + db+ "?serverTimezone=UTC"; 		//URL DB
             username = "root";                      			//usuario base de datos global 
             password = "";
