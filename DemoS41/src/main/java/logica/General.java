@@ -29,6 +29,28 @@ public class General {
         this.nameColumn = nameColumn;        
         
     }
+/*
+    public ArrayList getListaPropiedadesValues() {
+        return listaPropiedadesValues;
+    }*/
+
+    public Object getListaPropiedadesValues(int index) {
+        return listaPropiedadesValues.get(index);
+    }
+
+    public void setListaPropiedadesValues(int index, Object value) {
+        this.listaPropiedadesValues.set(index, value);
+    }
+    
+    
+
+    public String getNameTable() {
+        return nameTable;
+    }
+
+    public String[] getNameColumn() {
+        return nameColumn;
+    }
     
     
     public boolean guardarContacto() {        
@@ -94,9 +116,9 @@ public class General {
     }
     
 
-    public List<General> listarObjetos(String nameColumn) throws SQLException {
+    public ArrayList<General> listarObjetos(String nameColumn) throws SQLException {
         ConexionBD conexion = new ConexionBD();
-        List<General> listaContactos = new ArrayList<>();
+        ArrayList<General> listaContactos = new ArrayList<General>();
         String sql = "select * from "+nameTable+" order by "+nameColumn+" asc";
         ResultSet rs = conexion.consultarBD(sql);
         General c;
